@@ -14,7 +14,7 @@ from tau2.user.user_simulator import DummyUser
 from tau2.user.user_simulator_base import STOP
 
 MODEL = "openai/gpt-6-luna"
-REASONING_EFFORT = "high"
+REASONING_EFFORT = "low"
 MODEL_ARGS = {
     "reasoning_effort": REASONING_EFFORT,
     "allowed_openai_params": ["reasoning_effort"],

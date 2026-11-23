@@ -27,5 +27,5 @@ Omit `--upload` to run locally. Running cases needs model credentials, and
 `--upload` also needs LangSmith credentials. Upload syncs the full dataset and
 adds scores and traces for the selected cases to the experiment.
 
-The default model is Luna High. Use `case_pass` for the overall score and
+The default model is Luna Low. Use `case_pass` for the overall score and
 `db_match` for the final database assertion on confirmed bookings.
