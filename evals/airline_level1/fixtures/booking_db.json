@@ -1,0 +1,34 @@
+{
+  "flights": {
+    "HAT001": {
+      "flight_number": "HAT001",
+      "origin": "HGH",
+      "destination": "WUX",
+      "scheduled_departure_time_est": "09:00:00",
+      "scheduled_arrival_time_est": "10:00:00",
+      "dates": {
+        "2024-05-16": {
+          "status": "available",
+          "available_seats": {"basic_economy": 4, "economy": 4, "business": 0},
+          "prices": {"basic_economy": 800, "economy": 1000, "business": 2200}
+        }
+      }
+    }
+  },
+  "users": {
+    "chen_zhang_1001": {
+      "user_id": "chen_zhang_1001",
+      "name": {"first_name": "晨", "last_name": "张"},
+      "address": {"address1": "测试路 1 号", "city": "杭州", "country": "CN", "state": "浙江", "zip": "310000"},
+      "email": "chen@example.test",
+      "dob": "1990-04-05",
+      "membership": "regular",
+      "saved_passengers": [],
+      "reservations": [],
+      "payment_methods": {
+        "credit_card_1111": {"id": "credit_card_1111", "source": "credit_card", "brand": "visa", "last_four": "1111"}
+      }
+    }
+  },
+  "reservations": {}
+}
