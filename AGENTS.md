@@ -86,6 +86,9 @@ tau2 run --audio-native --benchmark voice-v1         # English voice frame
 Results go to `data/simulations/`. Use `tau2 view` to browse them. Terms such as
 pack, cell, frame and pin are defined in `docs/glossary.md`.
 
+For the custom agent's airline Level 1 dataset and filter commands, see
+[evals/AGENTS.md](evals/AGENTS.md).
+
 ## Architecture
 
 ```

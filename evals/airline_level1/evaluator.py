@@ -46,7 +46,7 @@ def evaluate_booking(inputs: dict, outputs: dict, reference_outputs: dict) -> di
     """Assert tool calls and compare the final database for write cases."""
     calls = (outputs or {}).get("tool_calls")
     if calls is None:
-        return {"key": "booking_pass", "score": False, "comment": "缺少工具调用记录"}
+        return {"key": "case_pass", "score": False, "comment": "缺少工具调用记录"}
 
     failures = [
         f"禁止调用 {name}"
@@ -89,7 +89,7 @@ def evaluate_booking(inputs: dict, outputs: dict, reference_outputs: dict) -> di
             failures.append("最终数据库与预期不一致")
 
     booking_pass = {
-        "key": "booking_pass",
+        "key": "case_pass",
         "score": not failures,
         "comment": "；".join(failures),
     }
@@ -143,7 +143,14 @@ def evaluate_flight_search(
     if writes:
         failures.append(f"查询航班时调用了写库工具 {writes}")
     return {
-        "key": "flight_search_pass",
+        "key": "case_pass",
         "score": not failures,
         "comment": "；".join(failures),
     }
+
+
+def evaluate_case(inputs: dict, outputs: dict, reference_outputs: dict) -> dict:
+    """Run the checks for this case's expected outputs."""
+    if "queries" in reference_outputs:
+        return evaluate_flight_search(inputs, outputs, reference_outputs)
+    return evaluate_booking(inputs, outputs, reference_outputs)
