@@ -43,7 +43,7 @@ class _SingleTurnUser(DummyUser):
 
 
 def target(inputs: dict) -> dict:
-    """Run the fixed user request until the first customer-facing reply."""
+    """Resume from fixed history and run one new user turn."""
     environment = booking_environment(inputs["initial_db"])
     agent = build_agent(
         "my_agent",
@@ -53,11 +53,15 @@ def target(inputs: dict) -> dict:
         language="zh",
         language_guidance="请用简体中文回复用户。",
     )
+    history = inputs.get("history", [])
     task = Task(
         id="level1-booking",
         user_scenario=UserScenario(instructions=""),
         initial_state=InitialState(
-            message_history=[UserMessage(role="user", content=inputs["user"], cost=0)]
+            message_history=[
+                *history,
+                UserMessage(role="user", content=inputs["user"], cost=0),
+            ]
         ),
     )
     orchestrator = Orchestrator(
@@ -69,7 +73,7 @@ def target(inputs: dict) -> dict:
         max_steps=16,
     )
     orchestrator.run()
-    turns = orchestrator.trajectory
+    turns = orchestrator.trajectory[len(history) + 1 :]
     responses = [message for message in turns if isinstance(message, AssistantMessage)]
     successful = {
         message.id: message.content
@@ -80,14 +84,16 @@ def target(inputs: dict) -> dict:
         "answer": responses[-1].content
         if responses and not responses[-1].tool_calls
         else "",
+        "db_hash": environment.get_db_hash(),
         "tool_calls": [
             {
                 "name": call.name,
                 "arguments": call.arguments,
                 "ok": call.id in successful,
                 "result": successful.get(call.id),
+                "step": step,
             }
-            for message in responses
+            for step, message in enumerate(responses, start=1)
             for call in message.tool_calls or ()
         ],
     }
