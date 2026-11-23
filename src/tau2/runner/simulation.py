@@ -2,7 +2,7 @@
 Layer 1: Simulation execution.
 
 Runs a pre-built orchestrator and evaluates the result.
-No registry dependency, no config parsing, no side effects.
+No registry dependency or run-config parsing.
 """
 
 from typing import Optional, Union
@@ -15,8 +15,39 @@ from tau2.evaluator.evaluator import EvaluationType, evaluate_simulation
 from tau2.orchestrator.full_duplex_orchestrator import FullDuplexOrchestrator
 from tau2.orchestrator.modes import CommunicationMode
 from tau2.orchestrator.orchestrator import Orchestrator
+from tau2.utils.tracing import current_trace_ref, traceable
 
 
+def _simulation_trace_inputs(inputs: dict) -> dict:
+    orchestrator = inputs["orchestrator"]
+    context = orchestrator.call_context
+    return {
+        "simulation_id": orchestrator.simulation_id,
+        "task_id": orchestrator.task.id,
+        "domain": orchestrator.environment.get_domain_name(),
+        "language": context.language.language if context else None,
+        "agent": type(orchestrator.agent).__name__,
+        "seed": orchestrator.seed,
+    }
+
+
+def _simulation_trace_outputs(simulation: SimulationRun | None) -> dict:
+    if simulation is None:
+        return {}
+    return {
+        **simulation.model_dump(
+            mode="json", include={"termination_reason", "duration"}
+        ),
+        "reward": simulation.reward_info.reward,
+        "reward_breakdown": simulation.reward_info.reward_breakdown,
+    }
+
+
+@traceable(
+    name="tau2.simulation",
+    process_inputs=_simulation_trace_inputs,
+    process_outputs=_simulation_trace_outputs,
+)
 def run_simulation(
     orchestrator: Union[Orchestrator, FullDuplexOrchestrator],
     *,
@@ -151,6 +182,8 @@ def run_simulation(
         customer_language=customer_language,
     )
     simulation.reward_info = reward_info
+    if trace_ref := current_trace_ref():
+        simulation.info = {**(simulation.info or {}), "langsmith_trace": trace_ref}
 
     logger.info(
         f"Simulation complete: domain={domain}, task={task.id}, "

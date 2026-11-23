@@ -40,6 +40,7 @@ from tau2.data_model.message import (
     UserMessage,
 )
 from tau2.environment.tool import Tool
+from tau2.utils.tracing import trace_child
 
 # Suppress Pydantic serialization warnings from LiteLLM
 # These occur due to type mismatches between streaming and non-streaming response types
@@ -710,21 +711,55 @@ def _generate_once(
     }
     request_timestamp = datetime.now().isoformat()
 
-    start_time = time.perf_counter()
-    try:
-        response = completion(
-            model=api_model,
-            messages=litellm_messages,
-            tools=tools_schema,
-            tool_choice=tool_choice,
-            **kwargs,
-        )
-    except Exception as e:
-        logger.error(e)
-        raise e
-    generation_time_seconds = time.perf_counter() - start_time
+    provider, _, model_name = model.partition("/")
+    with trace_child(
+        call_name or "llm",
+        run_type="llm",
+        inputs={
+            "model": model,
+            "messages": [
+                logged if isinstance(raw.get("content"), list) else raw
+                for raw, logged in zip(litellm_messages, formatted_messages)
+            ],
+            "tools": tools_schema,
+            "tool_choice": tool_choice,
+            "model_args": {
+                key: kwargs[key]
+                for key in ("reasoning_effort", "temperature")
+                if key in kwargs
+            },
+        },
+        metadata={
+            "ls_model_name": model_name or model,
+            "ls_provider": provider if model_name else None,
+        },
+    ) as llm_run:
+        start_time = time.perf_counter()
+        try:
+            response = completion(
+                model=api_model,
+                messages=litellm_messages,
+                tools=tools_schema,
+                tool_choice=tool_choice,
+                **kwargs,
+            )
+        except Exception as e:
+            logger.error(e)
+            raise e
+        generation_time_seconds = time.perf_counter() - start_time
+        usage = get_response_usage(response)
+        if llm_run is not None:
+            reply = response.choices[0].message.model_dump(
+                mode="json", include={"role", "content", "tool_calls"}
+            )
+            outputs = {"choices": [{"message": reply}]}
+            if usage is not None:
+                outputs["usage_metadata"] = {
+                    "input_tokens": usage["prompt_tokens"],
+                    "output_tokens": usage["completion_tokens"],
+                }
+            llm_run.add_outputs(outputs)
     cost = get_response_cost(response)
-    usage = get_response_usage(response)
 
     response_choice = response.choices[0]
     try:

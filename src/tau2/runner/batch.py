@@ -59,6 +59,7 @@ from tau2.runner.hallucination_checkpoint import (
     save_review_checkpoint,
 )
 from tau2.runner.helpers import get_info, make_run_name, select_run_tasks
+from tau2.runner.langsmith_evals import publish_experiment
 from tau2.runner.presets import uses_canonical_tasks
 from tau2.runner.progress import StatusMonitor, run_with_retry
 from tau2.runner.simulation import run_simulation
@@ -1229,6 +1230,16 @@ def _run_save_paths(config: RunConfig) -> tuple[str, Path, Path, str]:
     return run_name, save_dir, save_path, results_format
 
 
+def _report_metrics(config: RunConfig, results: Results, run_name: str) -> None:
+    metrics = compute_metrics(results)
+    ConsoleDisplay.display_agent_metrics(metrics)
+    if isinstance(config, TextRunConfig):
+        if url := publish_experiment(results, metrics, Path(run_name).name):
+            ConsoleDisplay.console.print(
+                f"LangSmith Experiment: {url}", markup=False, soft_wrap=True
+            )
+
+
 def run_domain(config: RunConfig) -> Results:
     """Run simulations for a domain from a RunConfig.
 
@@ -1252,7 +1263,7 @@ def run_domain(config: RunConfig) -> Results:
         warn_if_non_official_voices()
 
     tasks = _load_run_tasks(config)
-    _, save_dir, save_path, results_format = _run_save_paths(config)
+    run_name, save_dir, save_path, results_format = _run_save_paths(config)
 
     # Run batch
     simulation_results = run_tasks(
@@ -1264,8 +1275,7 @@ def run_domain(config: RunConfig) -> Results:
     )
 
     # Compute and display metrics
-    metrics = compute_metrics(simulation_results)
-    ConsoleDisplay.display_agent_metrics(metrics)
+    _report_metrics(config, simulation_results, run_name)
 
     return simulation_results
 
@@ -1336,7 +1346,6 @@ def run_domains(
         ConsoleDisplay.console.print(
             Text(text=f"\n=== {prep.run_id} ===", style="bold green")
         )
-        metrics = compute_metrics(prep.simulation_results)
-        ConsoleDisplay.display_agent_metrics(metrics)
+        _report_metrics(prep.config, prep.simulation_results, prep.run_id)
         results_by_run[prep.run_id] = prep.simulation_results
     return results_by_run
