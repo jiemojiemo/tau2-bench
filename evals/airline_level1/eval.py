@@ -103,9 +103,13 @@ def main() -> int:
     )
     passed = 0
     for row in rows:
-        case_id = row["example"].metadata["case_id"]
+        example = row["example"]
+        case_id = example.metadata["case_id"]
         results = row["evaluation_results"]["results"]
-        overall = next((check for check in results if check.key == "case_pass"), None)
+        score_key = (
+            "db_match" if example.outputs.keys() == {"db_actions"} else "case_pass"
+        )
+        overall = next((check for check in results if check.key == score_key), None)
         if row["run"].error:
             print(f"{case_id} ERROR")
         elif overall and overall.score:

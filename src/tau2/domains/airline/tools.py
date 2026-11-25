@@ -677,7 +677,8 @@ class AirlineTools(ToolKitBase):  # Tools
             reservation_id: The reservation ID, such as 'ZFA04Y'.
             cabin: The cabin class of the reservation
             flights: An array of objects containing details about each piece of flight in the ENTIRE new reservation. Even if the a flight segment is not changed, it should still be included in the array.
-            payment_id: The payment id stored in user profile, such as 'credit_card_7815826', 'gift_card_7815826', 'certificate_7815826'.
+            payment_id: The ID of one credit card or gift card selected by the user
+                from their saved payment methods for the charge or refund.
 
         Returns:
             The updated reservation.

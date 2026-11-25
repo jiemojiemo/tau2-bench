@@ -42,6 +42,11 @@ def _expected_db_hash(inputs: dict, actions: list[dict]) -> str | None:
     return environment.get_db_hash()
 
 
+def _db_matches(inputs: dict, outputs: dict, actions: list[dict]) -> bool:
+    expected_hash = _expected_db_hash(inputs, actions)
+    return expected_hash is not None and (outputs or {}).get("db_hash") == expected_hash
+
+
 def evaluate_booking(inputs: dict, outputs: dict, reference_outputs: dict) -> dict:
     """Assert tool calls and compare the final database when specified."""
     calls = (outputs or {}).get("tool_calls")
@@ -84,10 +89,7 @@ def evaluate_booking(inputs: dict, outputs: dict, reference_outputs: dict) -> di
         ]
         if actual_actions != [{**action, "ok": True} for action in actions]:
             failures.append("写库调用的次数、参数或执行结果与预期不符")
-        expected_db_hash = _expected_db_hash(inputs, actions)
-        db_match = (
-            expected_db_hash is not None and outputs.get("db_hash") == expected_db_hash
-        )
+        db_match = _db_matches(inputs, outputs, actions)
         if not db_match:
             failures.append("最终数据库与预期不一致")
 
@@ -154,6 +156,13 @@ def evaluate_flight_search(
 
 def evaluate_case(inputs: dict, outputs: dict, reference_outputs: dict) -> dict:
     """Run the checks for this case's expected outputs."""
+    if reference_outputs.keys() == {"db_actions"}:
+        score = _db_matches(inputs, outputs, reference_outputs["db_actions"])
+        return {
+            "key": "db_match",
+            "score": score,
+            "comment": "" if score else "最终数据库与预期不一致",
+        }
     if "queries" in reference_outputs:
         return evaluate_flight_search(inputs, outputs, reference_outputs)
     return evaluate_booking(inputs, outputs, reference_outputs)
