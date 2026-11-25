@@ -21,7 +21,12 @@ have flown if its status is still unknown.
 
 ## Confirm the payment method for a flight change
 
-Use the one eligible saved card the customer selected for the full charge or
-refund. If the customer wants to split the amount across cards or their chosen
-method cannot be used, ask them to select an eligible saved card and confirm the
-full amount on that card before calling `update_reservation_flights`.
+Verify the selected payment method against the customer's saved payment methods
+before deciding whether it can be used. Reuse a verified profile result from the
+conversation, or call `get_user_details` if the profile has not been checked.
+
+Once the customer has confirmed the flight change and the full charge or refund
+on one eligible saved credit or gift card, call `update_reservation_flights`.
+If the customer wants to split the amount across cards or their chosen method
+cannot be used, ask them to select an eligible saved card and confirm the full
+amount on that card before calling `update_reservation_flights`.

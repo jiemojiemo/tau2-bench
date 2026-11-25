@@ -9,6 +9,12 @@ from tau2.agent.llm_agent import (
 from tau2.environment.tool import Tool
 
 _PROMPTS = Path(__file__).with_name("my_agent_prompts")
+_AIRLINE_RUNTIME_CONTEXT = """
+
+<runtime_context>
+Scenario time: 2024-05-15T15:00:00+08:00 (Asia/Shanghai).
+Use this clock for relative dates and to decide whether a departure is in the past.
+</runtime_context>"""
 
 
 class MyAgent(LLMAgent[LLMAgentState]):
@@ -17,18 +23,21 @@ class MyAgent(LLMAgent[LLMAgentState]):
     @property
     def system_prompt(self) -> str:
         """Fill the standard template with airline or default prompt text."""
+        runtime_context = ""
         if any(tool.name == "book_reservation" for tool in self.tools):
             instructions = (
                 (_PROMPTS / "airline_behavior.md").read_text(encoding="utf-8").strip()
             )
             policy = (_PROMPTS / "airline_rules.md").read_text(encoding="utf-8").strip()
+            runtime_context = _AIRLINE_RUNTIME_CONTEXT
         else:
             instructions = AGENT_INSTRUCTION
             policy = self.domain_policy
 
-        return SYSTEM_PROMPT.format(
+        system_prompt = SYSTEM_PROMPT.format(
             agent_instruction=instructions, domain_policy=policy
         )
+        return system_prompt + runtime_context
 
 
 def create_my_agent(tools: list[Tool], domain_policy: str, **kwargs) -> MyAgent:
