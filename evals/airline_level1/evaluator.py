@@ -43,7 +43,7 @@ def _expected_db_hash(inputs: dict, actions: list[dict]) -> str | None:
 
 
 def evaluate_booking(inputs: dict, outputs: dict, reference_outputs: dict) -> dict:
-    """Assert tool calls and compare the final database for write cases."""
+    """Assert tool calls and compare the final database when specified."""
     calls = (outputs or {}).get("tool_calls")
     if calls is None:
         return {"key": "case_pass", "score": False, "comment": "缺少工具调用记录"}
@@ -54,23 +54,26 @@ def evaluate_booking(inputs: dict, outputs: dict, reference_outputs: dict) -> di
         if any(call["name"] == name for call in calls)
     ]
     for name, expected in reference_outputs["lookups"].items():
+        arguments = expected.get("arguments")
         matching_calls = [
             call
             for call in calls
             if call["name"] == name
-            and call["arguments"] == expected["arguments"]
+            and (arguments is None or call["arguments"] == arguments)
             and call["ok"]
         ]
         if not matching_calls:
             failures.append(f"缺少参数正确且成功的 {name} 调用")
             continue
-        if not any(
-            _contains_fields(
-                json.loads(call.get("result") or "null"), expected["result_contains"]
-            )
-            for call in matching_calls
-        ):
-            failures.append(f"{name} 返回值未匹配 {expected['result_contains']}")
+        expected_result = expected["result_contains"]
+        for call in matching_calls:
+            result = call.get("result")
+            if not isinstance(expected_result, str):
+                result = json.loads(result or "null")
+            if _contains_fields(result, expected_result):
+                break
+        else:
+            failures.append(f"{name} 返回值未匹配 {expected_result}")
     db_match = None
     if (actions := reference_outputs.get("db_actions")) is not None:
         action_names = {action["name"] for action in actions}

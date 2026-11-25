@@ -1,0 +1,584 @@
+{
+  "CANCEL-01": {
+    "flights": {
+      "HAT001": {
+        "flight_number": "HAT001",
+        "origin": "HGH",
+        "destination": "WUX",
+        "scheduled_departure_time_est": "09:00:00",
+        "scheduled_arrival_time_est": "10:00:00",
+        "dates": {
+          "2024-05-16": {
+            "status": "available",
+            "available_seats": {
+              "basic_economy": 4,
+              "economy": 4,
+              "business": 0
+            },
+            "prices": {
+              "basic_economy": 800,
+              "economy": 1000,
+              "business": 2200
+            }
+          }
+        }
+      }
+    },
+    "users": {
+      "chen_zhang_1001": {
+        "user_id": "chen_zhang_1001",
+        "name": {
+          "first_name": "晨",
+          "last_name": "张"
+        },
+        "address": {
+          "address1": "测试路 1 号",
+          "city": "杭州",
+          "country": "CN",
+          "state": "浙江",
+          "zip": "310000"
+        },
+        "email": "chen@example.test",
+        "dob": "1990-04-05",
+        "membership": "regular",
+        "saved_passengers": [],
+        "reservations": [
+          "TST001"
+        ],
+        "payment_methods": {
+          "credit_card_1111": {
+            "id": "credit_card_1111",
+            "source": "credit_card",
+            "brand": "visa",
+            "last_four": "1111"
+          }
+        }
+      }
+    },
+    "reservations": {
+      "TST001": {
+        "reservation_id": "TST001",
+        "user_id": "chen_zhang_1001",
+        "origin": "HGH",
+        "destination": "WUX",
+        "flight_type": "one_way",
+        "cabin": "economy",
+        "flights": [
+          {
+            "flight_number": "HAT001",
+            "date": "2024-05-16",
+            "origin": "HGH",
+            "destination": "WUX",
+            "price": 1000
+          }
+        ],
+        "passengers": [
+          {
+            "first_name": "晨",
+            "last_name": "张",
+            "dob": "1990-04-05"
+          }
+        ],
+        "payment_history": [
+          {
+            "payment_id": "credit_card_1111",
+            "amount": 1000
+          }
+        ],
+        "created_at": "2024-05-15T10:00:00",
+        "total_baggages": 0,
+        "nonfree_baggages": 0,
+        "insurance": "no"
+      }
+    }
+  },
+  "CANCEL-02": {
+    "flights": {
+      "HAT001": {
+        "flight_number": "HAT001",
+        "origin": "HGH",
+        "destination": "WUX",
+        "scheduled_departure_time_est": "09:00:00",
+        "scheduled_arrival_time_est": "10:00:00",
+        "dates": {
+          "2024-05-16": {
+            "status": "available",
+            "available_seats": {
+              "basic_economy": 4,
+              "economy": 4,
+              "business": 0
+            },
+            "prices": {
+              "basic_economy": 800,
+              "economy": 1000,
+              "business": 2200
+            }
+          }
+        }
+      }
+    },
+    "users": {
+      "chen_zhang_1001": {
+        "user_id": "chen_zhang_1001",
+        "name": {
+          "first_name": "晨",
+          "last_name": "张"
+        },
+        "address": {
+          "address1": "测试路 1 号",
+          "city": "杭州",
+          "country": "CN",
+          "state": "浙江",
+          "zip": "310000"
+        },
+        "email": "chen@example.test",
+        "dob": "1990-04-05",
+        "membership": "regular",
+        "saved_passengers": [],
+        "reservations": [
+          "TST001"
+        ],
+        "payment_methods": {
+          "credit_card_1111": {
+            "id": "credit_card_1111",
+            "source": "credit_card",
+            "brand": "visa",
+            "last_four": "1111"
+          }
+        }
+      }
+    },
+    "reservations": {
+      "TST001": {
+        "reservation_id": "TST001",
+        "user_id": "chen_zhang_1001",
+        "origin": "HGH",
+        "destination": "WUX",
+        "flight_type": "one_way",
+        "cabin": "basic_economy",
+        "flights": [
+          {
+            "flight_number": "HAT001",
+            "date": "2024-05-16",
+            "origin": "HGH",
+            "destination": "WUX",
+            "price": 800
+          }
+        ],
+        "passengers": [
+          {
+            "first_name": "晨",
+            "last_name": "张",
+            "dob": "1990-04-05"
+          }
+        ],
+        "payment_history": [
+          {
+            "payment_id": "credit_card_1111",
+            "amount": 800
+          }
+        ],
+        "created_at": "2024-05-10T10:00:00",
+        "total_baggages": 0,
+        "nonfree_baggages": 0,
+        "insurance": "no"
+      }
+    }
+  },
+  "CANCEL-03": {
+    "flights": {
+      "HAT001": {
+        "flight_number": "HAT001",
+        "origin": "HGH",
+        "destination": "WUX",
+        "scheduled_departure_time_est": "09:00:00",
+        "scheduled_arrival_time_est": "10:00:00",
+        "dates": {
+          "2024-05-16": {
+            "status": "cancelled"
+          }
+        }
+      }
+    },
+    "users": {
+      "chen_zhang_1001": {
+        "user_id": "chen_zhang_1001",
+        "name": {
+          "first_name": "晨",
+          "last_name": "张"
+        },
+        "address": {
+          "address1": "测试路 1 号",
+          "city": "杭州",
+          "country": "CN",
+          "state": "浙江",
+          "zip": "310000"
+        },
+        "email": "chen@example.test",
+        "dob": "1990-04-05",
+        "membership": "regular",
+        "saved_passengers": [],
+        "reservations": [
+          "TST001"
+        ],
+        "payment_methods": {
+          "credit_card_1111": {
+            "id": "credit_card_1111",
+            "source": "credit_card",
+            "brand": "visa",
+            "last_four": "1111"
+          }
+        }
+      }
+    },
+    "reservations": {
+      "TST001": {
+        "reservation_id": "TST001",
+        "user_id": "chen_zhang_1001",
+        "origin": "HGH",
+        "destination": "WUX",
+        "flight_type": "one_way",
+        "cabin": "basic_economy",
+        "flights": [
+          {
+            "flight_number": "HAT001",
+            "date": "2024-05-16",
+            "origin": "HGH",
+            "destination": "WUX",
+            "price": 800
+          }
+        ],
+        "passengers": [
+          {
+            "first_name": "晨",
+            "last_name": "张",
+            "dob": "1990-04-05"
+          }
+        ],
+        "payment_history": [
+          {
+            "payment_id": "credit_card_1111",
+            "amount": 800
+          }
+        ],
+        "created_at": "2024-05-10T10:00:00",
+        "total_baggages": 0,
+        "nonfree_baggages": 0,
+        "insurance": "no"
+      }
+    }
+  },
+  "CANCEL-04": {
+    "flights": {
+      "HAT001": {
+        "flight_number": "HAT001",
+        "origin": "HGH",
+        "destination": "WUX",
+        "scheduled_departure_time_est": "09:00:00",
+        "scheduled_arrival_time_est": "10:00:00",
+        "dates": {
+          "2024-05-16": {
+            "status": "available",
+            "available_seats": {
+              "basic_economy": 4,
+              "economy": 4,
+              "business": 0
+            },
+            "prices": {
+              "basic_economy": 800,
+              "economy": 1000,
+              "business": 2200
+            }
+          },
+          "2024-05-15": {
+            "status": "landed",
+            "actual_departure_time_est": "2024-05-15T09:00:00",
+            "actual_arrival_time_est": "2024-05-15T10:00:00"
+          }
+        }
+      },
+      "HAT002": {
+        "flight_number": "HAT002",
+        "origin": "WUX",
+        "destination": "HGH",
+        "scheduled_departure_time_est": "11:00:00",
+        "scheduled_arrival_time_est": "12:00:00",
+        "dates": {
+          "2024-05-16": {
+            "status": "available",
+            "available_seats": {
+              "basic_economy": 4,
+              "economy": 4,
+              "business": 0
+            },
+            "prices": {
+              "basic_economy": 800,
+              "economy": 1000,
+              "business": 2200
+            }
+          }
+        }
+      }
+    },
+    "users": {
+      "chen_zhang_1001": {
+        "user_id": "chen_zhang_1001",
+        "name": {
+          "first_name": "晨",
+          "last_name": "张"
+        },
+        "address": {
+          "address1": "测试路 1 号",
+          "city": "杭州",
+          "country": "CN",
+          "state": "浙江",
+          "zip": "310000"
+        },
+        "email": "chen@example.test",
+        "dob": "1990-04-05",
+        "membership": "regular",
+        "saved_passengers": [],
+        "reservations": [
+          "TST001"
+        ],
+        "payment_methods": {
+          "credit_card_1111": {
+            "id": "credit_card_1111",
+            "source": "credit_card",
+            "brand": "visa",
+            "last_four": "1111"
+          }
+        }
+      }
+    },
+    "reservations": {
+      "TST001": {
+        "reservation_id": "TST001",
+        "user_id": "chen_zhang_1001",
+        "origin": "HGH",
+        "destination": "WUX",
+        "flight_type": "round_trip",
+        "cabin": "business",
+        "flights": [
+          {
+            "flight_number": "HAT001",
+            "date": "2024-05-15",
+            "origin": "HGH",
+            "destination": "WUX",
+            "price": 2200
+          },
+          {
+            "flight_number": "HAT002",
+            "date": "2024-05-16",
+            "origin": "WUX",
+            "destination": "HGH",
+            "price": 2200
+          }
+        ],
+        "passengers": [
+          {
+            "first_name": "晨",
+            "last_name": "张",
+            "dob": "1990-04-05"
+          }
+        ],
+        "payment_history": [
+          {
+            "payment_id": "credit_card_1111",
+            "amount": 4400
+          }
+        ],
+        "created_at": "2024-05-10T10:00:00",
+        "total_baggages": 0,
+        "nonfree_baggages": 0,
+        "insurance": "no"
+      }
+    }
+  },
+  "CANCEL-05": {
+    "flights": {
+      "HAT001": {
+        "flight_number": "HAT001",
+        "origin": "HGH",
+        "destination": "WUX",
+        "scheduled_departure_time_est": "09:00:00",
+        "scheduled_arrival_time_est": "10:00:00",
+        "dates": {
+          "2024-05-16": {
+            "status": "available",
+            "available_seats": {
+              "basic_economy": 4,
+              "economy": 4,
+              "business": 0
+            },
+            "prices": {
+              "basic_economy": 800,
+              "economy": 1000,
+              "business": 2200
+            }
+          }
+        }
+      }
+    },
+    "users": {
+      "chen_zhang_1001": {
+        "user_id": "chen_zhang_1001",
+        "name": {
+          "first_name": "晨",
+          "last_name": "张"
+        },
+        "address": {
+          "address1": "测试路 1 号",
+          "city": "杭州",
+          "country": "CN",
+          "state": "浙江",
+          "zip": "310000"
+        },
+        "email": "chen@example.test",
+        "dob": "1990-04-05",
+        "membership": "regular",
+        "saved_passengers": [],
+        "reservations": [
+          "TST001"
+        ],
+        "payment_methods": {
+          "credit_card_1111": {
+            "id": "credit_card_1111",
+            "source": "credit_card",
+            "brand": "visa",
+            "last_four": "1111"
+          }
+        }
+      }
+    },
+    "reservations": {
+      "TST001": {
+        "reservation_id": "TST001",
+        "user_id": "chen_zhang_1001",
+        "origin": "HGH",
+        "destination": "WUX",
+        "flight_type": "one_way",
+        "cabin": "business",
+        "flights": [
+          {
+            "flight_number": "HAT001",
+            "date": "2024-05-16",
+            "origin": "HGH",
+            "destination": "WUX",
+            "price": 2200
+          }
+        ],
+        "passengers": [
+          {
+            "first_name": "晨",
+            "last_name": "张",
+            "dob": "1990-04-05"
+          }
+        ],
+        "payment_history": [
+          {
+            "payment_id": "credit_card_1111",
+            "amount": 2200
+          }
+        ],
+        "created_at": "2024-05-10T10:00:00",
+        "total_baggages": 0,
+        "nonfree_baggages": 0,
+        "insurance": "no"
+      }
+    }
+  },
+  "CANCEL-06": {
+    "flights": {
+      "HAT001": {
+        "flight_number": "HAT001",
+        "origin": "HGH",
+        "destination": "WUX",
+        "scheduled_departure_time_est": "09:00:00",
+        "scheduled_arrival_time_est": "10:00:00",
+        "dates": {
+          "2024-05-16": {
+            "status": "available",
+            "available_seats": {
+              "basic_economy": 4,
+              "economy": 4,
+              "business": 0
+            },
+            "prices": {
+              "basic_economy": 800,
+              "economy": 1000,
+              "business": 2200
+            }
+          }
+        }
+      }
+    },
+    "users": {
+      "chen_zhang_1001": {
+        "user_id": "chen_zhang_1001",
+        "name": {
+          "first_name": "晨",
+          "last_name": "张"
+        },
+        "address": {
+          "address1": "测试路 1 号",
+          "city": "杭州",
+          "country": "CN",
+          "state": "浙江",
+          "zip": "310000"
+        },
+        "email": "chen@example.test",
+        "dob": "1990-04-05",
+        "membership": "regular",
+        "saved_passengers": [],
+        "reservations": [
+          "TST001"
+        ],
+        "payment_methods": {
+          "credit_card_1111": {
+            "id": "credit_card_1111",
+            "source": "credit_card",
+            "brand": "visa",
+            "last_four": "1111"
+          }
+        }
+      }
+    },
+    "reservations": {
+      "TST001": {
+        "reservation_id": "TST001",
+        "user_id": "chen_zhang_1001",
+        "origin": "HGH",
+        "destination": "WUX",
+        "flight_type": "one_way",
+        "cabin": "economy",
+        "flights": [
+          {
+            "flight_number": "HAT001",
+            "date": "2024-05-16",
+            "origin": "HGH",
+            "destination": "WUX",
+            "price": 1000
+          }
+        ],
+        "passengers": [
+          {
+            "first_name": "晨",
+            "last_name": "张",
+            "dob": "1990-04-05"
+          }
+        ],
+        "payment_history": [
+          {
+            "payment_id": "credit_card_1111",
+            "amount": 1210
+          }
+        ],
+        "created_at": "2024-05-10T10:00:00",
+        "total_baggages": 0,
+        "nonfree_baggages": 0,
+        "insurance": "yes"
+      }
+    }
+  }
+}

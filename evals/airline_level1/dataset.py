@@ -4,6 +4,7 @@ from langsmith import Client
 from langsmith.schemas import Example
 from langsmith.utils import LangSmithNotFoundError
 
+from .cancel_cases import CANCEL_EXAMPLES
 from .cases import EXAMPLES
 from .confirmed_cases import CONFIRMED_EXAMPLES
 from .flight_cases import FLIGHT_EXAMPLES
@@ -11,7 +12,7 @@ from .flight_cases import FLIGHT_EXAMPLES
 DATASET_NAME = "tau2-airline-zh-level1-v1"
 CASES = {
     case["metadata"]["case_id"]: case
-    for case in (*EXAMPLES, *CONFIRMED_EXAMPLES, *FLIGHT_EXAMPLES)
+    for case in (*EXAMPLES, *CONFIRMED_EXAMPLES, *FLIGHT_EXAMPLES, *CANCEL_EXAMPLES)
 }
 
 
