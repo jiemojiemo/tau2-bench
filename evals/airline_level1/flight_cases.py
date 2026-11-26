@@ -75,7 +75,7 @@ FLIGHT_EXAMPLES = [
         "metadata": {
             "case_id": "FLIGHT-01",
             "level": "level1",
-            "feature": "查询航班",
+            "feature": "预定航班",
             "scenario": "同一天有多班直飞，查询航班号和起飞时间",
         },
         "inputs": {
@@ -109,7 +109,7 @@ FLIGHT_EXAMPLES = [
         "metadata": {
             "case_id": "FLIGHT-02",
             "level": "level1",
-            "feature": "查询航班",
+            "feature": "预定航班",
             "scenario": "直飞查不到时，继续查询一次中转",
         },
         "inputs": {
@@ -161,7 +161,7 @@ FLIGHT_EXAMPLES = [
         "metadata": {
             "case_id": "FLIGHT-03",
             "level": "level1",
-            "feature": "查询航班",
+            "feature": "预定航班",
             "scenario": "直飞查不到，用户明确拒绝中转",
         },
         "inputs": {
@@ -189,7 +189,7 @@ FLIGHT_EXAMPLES = [
         "metadata": {
             "case_id": "FLIGHT-04",
             "level": "level1",
-            "feature": "查询航班",
+            "feature": "预定航班",
             "scenario": "用航班号和日期查询是否延误",
         },
         "inputs": {
@@ -210,7 +210,7 @@ FLIGHT_EXAMPLES = [
         "metadata": {
             "case_id": "FLIGHT-05",
             "level": "level1",
-            "feature": "查询航班",
+            "feature": "预定航班",
             "scenario": "沿用历史中的路线，按追问的新日期重查",
         },
         "inputs": {

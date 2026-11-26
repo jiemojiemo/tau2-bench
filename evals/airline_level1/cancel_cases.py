@@ -12,7 +12,7 @@ CANCEL_EXAMPLES = [
         "metadata": {
             "case_id": "CANCEL-01",
             "level": "level1",
-            "feature": "取消订单",
+            "feature": "取消航班",
             "scenario": "普通经济舱购票未满 24 小时，行程变更并确认后取消",
         },
         "inputs": {
@@ -96,7 +96,7 @@ CANCEL_EXAMPLES = [
         "metadata": {
             "case_id": "CANCEL-02",
             "level": "level1",
-            "feature": "取消订单",
+            "feature": "取消航班",
             "scenario": "基础经济舱购票超过 24 小时，无保险且航班正常，因行程变更无法取消",
         },
         "inputs": {
@@ -122,7 +122,7 @@ CANCEL_EXAMPLES = [
         "metadata": {
             "case_id": "CANCEL-03",
             "level": "level1",
-            "feature": "取消订单",
+            "feature": "取消航班",
             "scenario": "超过 24 小时的无保险基础经济舱，查实航司已取消航班，用户确认后取消订单",
         },
         "inputs": {
@@ -206,7 +206,7 @@ CANCEL_EXAMPLES = [
         "metadata": {
             "case_id": "CANCEL-04",
             "level": "level1",
-            "feature": "取消订单",
+            "feature": "取消航班",
             "scenario": "商务舱往返订单的去程已落地，回程未飞，要求取消整笔订单时转人工",
         },
         "inputs": {
@@ -236,7 +236,7 @@ CANCEL_EXAMPLES = [
         "metadata": {
             "case_id": "CANCEL-05",
             "level": "level1",
-            "feature": "取消订单",
+            "feature": "取消航班",
             "scenario": "商务舱购票超过 24 小时，无保险，行程变更并确认后取消",
         },
         "inputs": {
@@ -320,7 +320,7 @@ CANCEL_EXAMPLES = [
         "metadata": {
             "case_id": "CANCEL-06",
             "level": "level1",
-            "feature": "取消订单",
+            "feature": "取消航班",
             "scenario": "普通经济舱购票超过 24 小时，因旅行保险覆盖的健康原因取消，用户已确认",
         },
         "inputs": {

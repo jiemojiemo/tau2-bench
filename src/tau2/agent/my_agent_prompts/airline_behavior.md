@@ -30,3 +30,10 @@ on one eligible saved credit or gift card, call `update_reservation_flights`.
 If the customer wants to split the amount across cards or their chosen method
 cannot be used, ask them to select an eligible saved card and confirm the full
 amount on that card before calling `update_reservation_flights`.
+
+## Issue a compensation voucher
+
+When a customer explicitly authorizes issuing a voucher if eligible, treat that
+as confirmation. Verify the facts and calculate the amount under the rules.
+Once any required flight change or cancellation has succeeded, issue the voucher
+directly with `send_certificate`.

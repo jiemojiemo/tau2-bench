@@ -26,7 +26,7 @@ EXAMPLES = [
         "metadata": {
             "case_id": "BOOK-01",
             "level": "level1",
-            "feature": "预订航班",
+            "feature": "预定航班",
             "scenario": "预订信息齐全，下单前查票价和档案里的信用卡",
         },
         "inputs": {
@@ -69,7 +69,7 @@ EXAMPLES = [
         "metadata": {
             "case_id": "BOOK-02",
             "level": "level1",
-            "feature": "预订航班",
+            "feature": "预定航班",
             "scenario": "只询价，暂不预订",
         },
         "inputs": {
@@ -101,7 +101,7 @@ EXAMPLES = [
         "metadata": {
             "case_id": "BOOK-03",
             "level": "level1",
-            "feature": "预订航班",
+            "feature": "预定航班",
             "scenario": "同行人缺出生日期时禁止下单",
         },
         "inputs": {
@@ -122,7 +122,7 @@ EXAMPLES = [
         "metadata": {
             "case_id": "BOOK-04",
             "level": "level1",
-            "feature": "预订航班",
+            "feature": "预定航班",
             "scenario": "普通经济舱售罄，用户拒绝替代舱等",
         },
         "inputs": {
@@ -154,7 +154,7 @@ EXAMPLES = [
         "metadata": {
             "case_id": "BOOK-05",
             "level": "level1",
-            "feature": "预订航班",
+            "feature": "预定航班",
             "scenario": "拆分付款前核对票价、礼品卡余额和信用卡",
         },
         "inputs": {

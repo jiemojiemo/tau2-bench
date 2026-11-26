@@ -62,7 +62,7 @@ CONFIRMED_EXAMPLES = [
         "metadata": {
             "case_id": "BOOK-06",
             "level": "level1",
-            "feature": "预订航班",
+            "feature": "预定航班",
             "scenario": "用户确认后，按已确认的方案创建一次订单",
         },
         "inputs": {
@@ -127,7 +127,7 @@ CONFIRMED_EXAMPLES = [
         "metadata": {
             "case_id": "BOOK-08",
             "level": "level1",
-            "feature": "预订航班",
+            "feature": "预定航班",
             "scenario": "补齐同行人出生日期并确认后，为两位乘客下单",
         },
         "inputs": {
@@ -208,7 +208,7 @@ CONFIRMED_EXAMPLES = [
         "metadata": {
             "case_id": "BOOK-09",
             "level": "level1",
-            "feature": "预订航班",
+            "feature": "预定航班",
             "scenario": "普通经济舱售罄，改选基础经济舱并确认后下单",
         },
         "inputs": {
@@ -286,7 +286,7 @@ CONFIRMED_EXAMPLES = [
         "metadata": {
             "case_id": "BOOK-10",
             "level": "level1",
-            "feature": "预订航班",
+            "feature": "预定航班",
             "scenario": "确认礼品卡和信用卡的拆分付款后下单",
         },
         "inputs": {

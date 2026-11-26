@@ -70,6 +70,17 @@ def evaluate_booking(inputs: dict, outputs: dict, reference_outputs: dict) -> di
         if not matching_calls:
             failures.append(f"缺少参数正确且成功的 {name} 调用")
             continue
+        if before := expected.get("before"):
+            action_step = min(
+                (call["step"] for call in calls if call["name"] == before),
+                default=float("inf"),
+            )
+            matching_calls = [
+                call for call in matching_calls if call["step"] < action_step
+            ]
+            if not matching_calls:
+                failures.append(f"必须在 {before} 前成功调用 {name}")
+                continue
         expected_result = expected["result_contains"]
         for call in matching_calls:
             result = call.get("result")
@@ -82,13 +93,18 @@ def evaluate_booking(inputs: dict, outputs: dict, reference_outputs: dict) -> di
     db_match = None
     if (actions := reference_outputs.get("db_actions")) is not None:
         action_names = {action["name"] for action in actions}
+        write_calls = [call for call in calls if call["name"] in action_names]
         actual_actions = [
             {key: call[key] for key in ("name", "arguments", "ok")}
-            for call in calls
-            if call["name"] in action_names
+            for call in write_calls
         ]
         if actual_actions != [{**action, "ok": True} for action in actions]:
             failures.append("写库调用的次数、参数或执行结果与预期不符")
+        elif any(
+            previous["step"] >= current["step"]
+            for previous, current in zip(write_calls, write_calls[1:])
+        ):
+            failures.append("必须等上一个写库工具成功，再发起下一次写库调用")
         db_match = _db_matches(inputs, outputs, actions)
         if not db_match:
             failures.append("最终数据库与预期不一致")
